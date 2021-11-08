@@ -12,12 +12,12 @@ const routes = [
         file: 'visitors', auth: false, info: [
             { path: require('./routes/visitor-route'), name: '/visitors' }
         ],
+    },
+    {
+        file: 'user', info: [
+            { path: require('./routes/user-route'), name: '/user' }
+        ],
     }
-    // {
-    //     file: 'user', info: [
-    //         { path: require('./routes/user-route'), name: '/user' }
-    //     ],
-    // }
 ];
 
 app.use((req, res, next) => {
