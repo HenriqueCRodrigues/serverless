@@ -1,5 +1,5 @@
 const Route = require('./routes/route');
-// const serverless = require('serverless-http');
+const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
 
@@ -56,5 +56,5 @@ routes.filter(routesCollection => {
 //     res.send({ value });
 // });
 
-app.listen(3000, () => console.log(`Listening on: 3000`));
-// module.exports.handler = serverless(app);
+// app.listen(3000, () => console.log(`Listening on: 3000`));
+module.exports.handler = serverless(app);
