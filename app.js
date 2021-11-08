@@ -4,7 +4,7 @@ const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
 const AWS = require('aws-sdk');
-const { AWS_REGION: region, AWS_ACCESS_KEY: accessKeyId, AWS_SECRET_ACCESS: secretAccessKey }
+const { AWS_REGION: region, AWS_ACCESS_KEY: accessKeyId, AWS_SECRET_ACCESS: secretAccessKey } = process.env;
 
 AWS.config.update({
     region,
