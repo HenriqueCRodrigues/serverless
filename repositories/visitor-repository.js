@@ -4,10 +4,10 @@ const axios = require("axios");
 class VisitorRepository {
     getCount = async () => {
         try {
-            const key = 'henrique';
-            const value = 'test';
+            const namespace = 'henrique';
+            const key = 'test';
 
-            const response = await axios(`https://api.countapi.xyz/get/${key}/${value}`);
+            const response = await axios(`https://api.countapi.xyz/get/${namespace}/${key}`);
             const data = { value: response.data.value };
 
             return {
@@ -24,10 +24,10 @@ class VisitorRepository {
 
     hitCount = async () => {
         try {
-            const key = 'henrique';
-            const value = 'test';
+            const namespace = 'henrique';
+            const key = 'test';
 
-            const response = await axios(`https://api.countapi.xyz/hit/${key}/${value}`);
+            const response = await axios(`https://api.countapi.xyz/hit/${namespace}/${key}`);
             const data = { value: response.data.value };
 
             return {
