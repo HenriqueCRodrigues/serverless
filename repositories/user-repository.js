@@ -23,7 +23,7 @@ class UserRepository {
             });
 
             if (existUser) {
-                // return { statusCode: 400, data: { message: 'User already exist' } };
+                return { statusCode: 400, data: { message: 'User already exist' } };
             }
 
             const salt = bcrypt.genSaltSync(10);
