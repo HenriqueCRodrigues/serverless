@@ -1,13 +1,15 @@
-const Route = require('./routes/route');
+require('dotenv').config();
+const RouteHelper = require('./helpers/route-helper');
 const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
 const AWS = require('aws-sdk');
+const { AWS_REGION: region, AWS_ACCESS_KEY: accessKeyId, AWS_SECRET_ACCESS: secretAccessKey }
 
 AWS.config.update({
-    region: 'sa-east-1',
-    accessKeyId: 'AKIA4GSBO3E777WQLTFX',
-    secretAccessKey: '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'
+    region,
+    accessKeyId,
+    secretAccessKey
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -45,23 +47,12 @@ app.use((req, res, next) => {
 routes.filter(routesCollection => {
     routesCollection.info.filter(data => {
         if (routesCollection.auth) {
-            app.use(data.name, Route.verifyJWT, data.path);
+            app.use(data.name, RouteHelper.verifyJWT, data.path);
         } else {
             app.use(data.name, data.path);
         }
     });
 });
 
-// app.get('/visitors', async (req, res) => {
-//     const response = await axios('https://api.countapi.xyz/get/henrique/test');
-//     const value = response.data.value;
-//     res.send({ value });
-// });
-// app.post('/visitors', async (req, res) => {
-//     const response = await axios('https://api.countapi.xyz/hit/henrique/test');
-//     const value = response.data.value;
-//     res.send({ value });
-// });
-
-app.listen(3000, () => console.log(`Listening on: 3000`));
-// module.exports.handler = serverless(app);
+// app.listen(3000, () => console.log(`Listening on: 3000`));
+module.exports.handler = serverless(app);

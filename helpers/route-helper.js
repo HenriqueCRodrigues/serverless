@@ -1,13 +1,14 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-// const User = require('../models/user');
+const { SECRET: secret } = process.env;
+
 const RepositoryHelper = require('./repository-helper');
 
 const verifyJWT = (req, res, next) => {
     const token = req.headers['x-access-token'];
     if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
 
-    jwt.verify(token, process.env.SECRET, async function (err, decoded) {
+    jwt.verify(token, secret, async function (err, decoded) {
         if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
         req.email = decoded.email;
         if (!req.session) {
