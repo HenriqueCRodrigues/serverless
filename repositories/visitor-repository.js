@@ -5,9 +5,8 @@ class VisitorRepository {
     getCount = async () => {
         try {
             const namespace = 'henrique';
-            const key = 'test';
 
-            const response = await axios(`https://api.countapi.xyz/get/${namespace}/${key}`);
+            const response = await axios(`https://api.countapi.xyz/get/${namespace}/count`);
             const data = { value: response.data.value };
 
             return {
@@ -25,9 +24,8 @@ class VisitorRepository {
     hitCount = async () => {
         try {
             const namespace = 'henrique';
-            const key = 'test';
 
-            const response = await axios(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+            const response = await axios(`https://api.countapi.xyz/hit/${namespace}/count`);
             const data = { value: response.data.value };
 
             return {
