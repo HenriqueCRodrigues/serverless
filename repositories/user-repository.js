@@ -1,9 +1,7 @@
-// const User = require('../models/user');
-// const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const axios = require('axios');
 const bcrypt = require('bcrypt');
 const RepositoryHelper = require('../helpers/repository-helper');
+const CountapiService = require('../services/countapi');
 const { SECRET: secret } = process.env;
 
 class UserRepository {
@@ -14,7 +12,7 @@ class UserRepository {
 
     store = async (body) => {
         try {
-            await axios(`https://api.countapi.xyz/hit/${this.globalCount}/count`);
+            await CountapiService.hit(this.globalCount);
 
             const keyValidator = RepositoryHelper.keySanitization(body.email);
             const { Item: existUser } = await RepositoryHelper.getByKey({
@@ -28,8 +26,7 @@ class UserRepository {
 
             const salt = bcrypt.genSaltSync(10);
             body.password = bcrypt.hashSync(body.password, salt);
-            const response = await axios(`https://api.countapi.xyz/hit/${keyValidator}/count`);
-            body.access = response.data.value;
+            body.access = await CountapiService.hit(keyValidator);
 
             await RepositoryHelper.putValues({
                 TableName: this.table,
@@ -54,7 +51,7 @@ class UserRepository {
     }
 
     login = async (form, session) => {
-        await axios(`https://api.countapi.xyz/hit/${this.globalCount}/count`);
+        await CountapiService.hit(this.globalCount);
 
         const response = {};
         const { Item: user } = await RepositoryHelper.getByKey({
@@ -84,7 +81,7 @@ class UserRepository {
             }
 
             const keyValidator = RepositoryHelper.keySanitization(user.email);
-            const { data: { value: access } } = await axios(`https://api.countapi.xyz/hit/${keyValidator}/count`);
+            const access = await CountapiService.hit(keyValidator);
 
 
             await RepositoryHelper.updateValues({
