@@ -7,12 +7,12 @@ class VisitorController {
     }
 
     getCount = async (req, res, next) => {
-        const { statusCode, data } = await this.visitorRepository.getCount(req.body);
+        const { statusCode, data } = await this.visitorRepository.getCount(req.session);
         res.status(statusCode).send(data);
     }
 
     hitCount = async (req, res, next) => {
-        const { statusCode, data } = await this.visitorRepository.hitCount(req.body);
+        const { statusCode, data } = await this.visitorRepository.hitCount(req.session);
         res.status(statusCode).send(data);
     }
 }

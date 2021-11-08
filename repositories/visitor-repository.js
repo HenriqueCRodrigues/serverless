@@ -1,13 +1,21 @@
-const axios = require("axios");
-// const jwt = require('jsonwebtoken');
+const RepositoryHelper = require('../helpers/repository-helper');
+const CountapiService = require('../services/countapi');
 
 class VisitorRepository {
-    getCount = async () => {
-        try {
-            const namespace = 'henrique';
+    constructor() {
+        this.table = 'users';
+        this.globalCount = 'ton';
+    }
 
-            const response = await axios(`https://api.countapi.xyz/get/${namespace}/count`);
-            const data = { value: response.data.value };
+    getCount = async (session) => {
+        try {
+            const visits = await CountapiService.get(this.globalCount);
+            const data = { visits };
+
+            if (session) {
+                const keyValidator = RepositoryHelper.keySanitization(session.user.email);
+                data.yourVisits = await CountapiService.get(keyValidator);
+            }
 
             return {
                 statusCode: 200,
@@ -21,12 +29,15 @@ class VisitorRepository {
         }
     }
 
-    hitCount = async () => {
+    hitCount = async (session) => {
         try {
-            const namespace = 'henrique';
+            const visits = await CountapiService.hit(this.globalCount);
+            const data = { visits };
 
-            const response = await axios(`https://api.countapi.xyz/hit/${namespace}/count`);
-            const data = { value: response.data.value };
+            if (session) {
+                const keyValidator = RepositoryHelper.keySanitization(session.user.email);
+                data.yourVisits = await CountapiService.hit(keyValidator);
+            }
 
             return {
                 statusCode: 200,

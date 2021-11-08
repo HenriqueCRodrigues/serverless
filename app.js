@@ -47,12 +47,12 @@ app.use((req, res, next) => {
 routes.filter(routesCollection => {
     routesCollection.info.filter(data => {
         if (routesCollection.auth) {
-            app.use(data.name, RouteHelper.verifyJWT, data.path);
+            app.use(data.name, RouteHelper.auth, data.path);
         } else {
-            app.use(data.name, data.path);
+            app.use(data.name, RouteHelper.verifyJWT, data.path);
         }
     });
 });
 
-// app.listen(3000, () => console.log(`Listening on: 3000`));
-module.exports.handler = serverless(app);
+app.listen(3000, () => console.log(`Listening on: 3000`));
+// module.exports.handler = serverless(app);
