@@ -17,7 +17,7 @@ class UserController {
     }
 
     me = async (req, res, next) => {
-        const { statusCode, data } = await this.userRepository.me(req.body, req.session);
+        const { statusCode, data } = await this.userRepository.me(req.session);
         res.status(statusCode).send(data);
     }
 

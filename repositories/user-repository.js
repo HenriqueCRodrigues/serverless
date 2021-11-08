@@ -42,7 +42,7 @@ class UserRepository {
         }
     }
 
-    me = async (form, session) => {
+    me = async (session) => {
         const email = session.user.email;
 
         const { Item: user } = await RepositoryHelper.getByKey({
