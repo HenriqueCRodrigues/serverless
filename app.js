@@ -3,14 +3,6 @@ const RouteHelper = require('./helpers/route-helper');
 const serverless = require('serverless-http');
 const express = require('express');
 const app = express();
-const AWS = require('aws-sdk');
-const { AWS_REGION: region, AWS_ACCESS_KEY: accessKeyId, AWS_SECRET_ACCESS: secretAccessKey } = process.env;
-
-AWS.config.update({
-    region,
-    accessKeyId,
-    secretAccessKey
-});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -54,5 +46,5 @@ routes.filter(routesCollection => {
     });
 });
 
-app.listen(3000, () => console.log(`Listening on: 3000`));
-// module.exports.handler = serverless(app);
+// app.listen(3000, () => console.log(`Listening on: 3000`));
+module.exports.handler = serverless(app);

@@ -4,6 +4,7 @@ provider:
   runtime: nodejs14.x
   stage: api
   region: sa-east-1
+  lambdaHashingVersion: 20201221
   memorySize: 256
 functions:
   app:
@@ -17,3 +18,5 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
+    environment: 
+      SECRET: senhasupersecreta

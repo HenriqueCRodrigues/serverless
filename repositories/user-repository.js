@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const RepositoryHelper = require('../helpers/repository-helper');
 const CountapiService = require('../services/countapi');
 const { SECRET: secret } = process.env;
