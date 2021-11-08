@@ -1,7 +1,6 @@
 const Route = require('./routes/route');
-const serverless = require('serverless-http');
+// const serverless = require('serverless-http');
 const express = require('express');
-const axios = require("axios");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));

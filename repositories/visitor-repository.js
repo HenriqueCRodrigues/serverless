@@ -1,11 +1,18 @@
+const axios = require("axios");
 // const jwt = require('jsonwebtoken');
 
 class VisitorRepository {
-    getCount = () => {
+    getCount = async () => {
         try {
+            const key = 'henrique';
+            const value = 'test';
+
+            const response = await axios(`https://api.countapi.xyz/get/${key}/${value}`);
+            const data = { value: response.data.value };
+
             return {
                 statusCode: 200,
-                data: 'Busca contagem'
+                data
             };
         } catch (err) {
             return {
@@ -15,11 +22,17 @@ class VisitorRepository {
         }
     }
 
-    hitCount = () => {
+    hitCount = async () => {
         try {
+            const key = 'henrique';
+            const value = 'test';
+
+            const response = await axios(`https://api.countapi.xyz/hit/${key}/${value}`);
+            const data = { value: response.data.value };
+
             return {
                 statusCode: 200,
-                data: 'Insere contagem'
+                data
             };
         } catch (err) {
             return {
