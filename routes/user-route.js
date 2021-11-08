@@ -1,14 +1,14 @@
 const userController = require('../controllers/user-controller');
-const Route = require('./route');
+const RouteHelper = require('../helpers/route-helper');
 // const jwt = require('jsonwebtoken');
 // const User = require('../models/user');
 
 class UserRoute {
     constructor() {
-        this.router = Route.loadRoutes([
+        this.router = RouteHelper.loadRoutes([
             { method: 'post', route: '', function: userController.store },
             { method: 'post', route: '/login', function: userController.login },
-            { method: 'get', route: '/me', function: userController.me }
+            { method: 'get', route: '/me', function: userController.me, auth: true }
         ]);
     }
 }

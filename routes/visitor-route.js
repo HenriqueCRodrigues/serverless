@@ -1,9 +1,9 @@
 const visitorController = require('../controllers/visitor-controller');
-const Route = require('./route');
+const RouteHelper = require('../helpers/route-helper');
 
 class VisitorRoute {
     constructor() {
-         this.router = Route.loadRoutes([
+         this.router = RouteHelper.loadRoutes([
             { method: 'get', route: '', function: visitorController.getCount },
             { method: 'post', route: '', function: visitorController.hitCount },
         ]);
